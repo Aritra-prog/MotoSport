@@ -1,0 +1,91 @@
+/* General Reset and Typography */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Navigation Bar */
+  .navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f8f9fa !important;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #f8f9fa;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #ffc107;
+  }
+  
+  .nav-item:last-child {
+    margin-left: auto;
+  }
+  
+  .float-start a {
+    margin-right: 15px;
+    color: #f8f9fa;
+    font-size: 1rem;
+  }
+  
+  .float-start a:hover {
+    color: #ffc107;
+  }
+  
+  /* Footer */
+  footer {
+    background: #333;
+    color: #f8f9fa;
+  }
+  
+  footer p {
+    margin: 0;
+  }
+  
+  footer a {
+    color: #ffc107;
+  }
+  
+  footer a:hover {
+    color: #fff;
+  }
+  
+  /* Custom Blocks */
+  .content {
+    padding: 30px;
+    background: #f8f9fa;
+  }
+  
+  .content h1,
+  .content p {
+    margin-bottom: 20px;
+  }
+  .carousel-caption h5 {
+    font-size: 2rem;
+    color: #fff;
+  }
+  
+  .carousel-caption p {
+    font-size: 1.2rem;
+    color: #ccc;
+  }
+  
+  .carousel-inner img {
+    height: 400px; /* Adjust the height of the images */
+    object-fit: cover; /* Ensures images are cropped nicely */
+  }
+  

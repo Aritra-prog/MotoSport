@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div style="background-image: url({% static 'images/red-bull.jpg' %}); background-size: cover; background-repeat: no-repeat; min-height: 100vh;">
+    <div class="container py-5">
+        <div class="card p-4" style="background-color: rgba(255, 255, 255, 0.9); border-radius: 10px;">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">Welcome to Your Dashboard, {{ user.username }}!</h2>
+                <p class="text-muted">Manage your account and explore exclusive features.</p>
+            </div>
+            {% csrf_token %}
+            <!-- User Information Section -->
+            <div class="mb-4">
+                <h4 class="fw-bold">Your Profile Information</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Username:</strong> {{ user.username }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Gender:</strong> {{ user.userprofile.gender }}</p>
+                        <p><strong>Date of Birth:</strong> {{ user.userprofile.dob }}</p>
+                        <p><strong>Address:</strong> {{ user.userprofile.address }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="mb-4">
+                <h4 class="fw-bold">Quick Links</h4>
+                <div class="d-grid gap-2">
+                         </div>
+            </div>
+
+             <!-- Image Preview -->
+        <div class="form-group mt-3">
+            <label>Companies:</label>
+            <img id="logoPreview" src="" alt="Image Preview" class="img-thumbnail" style="display: none; max-width: 200px; margin-top: 10px;">
+        </div>
+         
+        
+       
+
+            <!-- Additional Features -->
+            <div class="mb-4">
+                <h4 class="fw-bold">Exclusive Features</h4>
+                <div class="row">
+                    {% for company in comapnies %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center p-3">
+                            <h5>{{ company.name }}</h5>
+                            <p class="text-muted">{{ company.address }}</p>
+                            {% if company.image %}
+                                <img src="{{ company.image.url }}" alt="{{ company.name }} Logo" class="img-fluid mb-2" style="max-height: 150px;">
+                            {% else %}
+                                <p class="text-muted">No logo available</p>
+                            {% endif %}
+                            <a href="{% url 'apply_company' company.id %}" class="btn btn-primary mt-2">Apply</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

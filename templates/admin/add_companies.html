@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- add_companies.html -->
+{% block content %}
+
+<div class="container">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <h1>Add Companies</h1>
+
+        <div class="form-group">
+            <label for="companyName">Company Name:</label>
+            <input type="text" id="companyName" name="companyName" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="companyAddress">Company Address:</label>
+            <input type="text" id="companyAddress" name="companyAddress" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="companyLogo">Company Logo:</label>
+            <input type="file" id="companyLogo" name="companyLogo" class="form-control" accept="image/*" onchange="previewImage(event)">
+        </div>
+
+        <!-- Image Preview -->
+        <div class="form-group mt-3">
+            <label>Logo Preview:</label>
+            <img id="logoPreview" src="" alt="Image Preview" class="img-thumbnail" style="display: none; max-width: 200px; margin-top: 10px;">
+        </div> 
+
+        <button type="submit" class="btn btn-primary mt-3">Add Company</button>
+    </form>
+
+    <div class="company-list mt-5">
+        <h2>Added Companies</h2>
+        <div class="row">
+            {% for company in companies %}
+            <div class="col-md-4 mb-3">
+                <div class="card text-center p-3">
+                    <h5>{{ company.name }}</h5>
+                    <p class="text-muted">{{ company.address }}</p>
+                    {% if company.image %}
+                        <img src="{{ company.image.url }}" alt="{{ company.name }} Logo" class="img-fluid mb-2" style="max-height: 150px;">
+                    {% else %}
+                        <p class="text-muted">No logo available</p>
+                    {% endif %}
+                    <a href="#" class="btn btn-primary mt-2">Learn More</a>
+                </div>
+                 <!-- Delete Button -->
+                    <form method="POST" action="{% url 'delete_company' company.id %}" class="mt-2">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Add JavaScript for image preview -->
+<script>
+    function previewImage(event) {
+        const preview = document.getElementById('logoPreview');
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+    }
+</script>
+
+{% endblock content %}
