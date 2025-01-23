@@ -31,3 +31,13 @@ class MotoCompany(models.Model):
         return self.name
 
 
+class ApplyCompany(models.Model):
+    full_name=models.CharField(max_length=50,null=True)
+    email = models.TextField()
+    phone_number = models.IntegerField()
+    upload_resume = models.FileField(upload_to="upload_resume_doc/")
+    cover_letter = models.TextField()
+
+    def __str__(self):
+        return self.full_name
+    

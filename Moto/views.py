@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate,login
 from .models import UserProfile
 from datetime import date
 from django.contrib import messages
-from .models import Company
+from .models import Company,ApplyCompany
 
 
 def add_company(request):
@@ -75,4 +75,14 @@ def delete_company(request, id):
     return redirect('dashboard')
 
 def apply_company(request, company_id):
+    if request.method=='POST':
+        user = request.POST['username']
+        email = request.POST['email']
+        phone_number = request.POST['phone_number']
+        upload_resume = request.FILES['upload_dresume']
+        cover_letter = request.POST['cover_letter']
+
+        new_content = ApplyCompany.objects.create(full_name=user,email=email,phone_number=phone_number,upload_resume=upload_resume,cover_letter=cover_letter)
+        new_content.save()
+        return redirect('dashboard')
     return render(request, 'accounts/apply_company.html', {'company_id': company_id})
